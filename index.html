@@ -61,12 +61,12 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Rechercher"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://zhu-jihui.github.io"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://zhu-jihui.github.io"></form>
       </div>
     </div>
   </div>
@@ -138,11 +138,200 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://zhu-jihui.github.io/2022/10/10/%E5%9F%BA%E4%BA%8E%20Hexo%20%E7%9A%84%E5%8D%9A%E5%AE%A2%E7%94%9F%E6%88%90%E8%84%9A%E6%89%8B%E6%9E%B6/" data-id="cl92m67de00007wz62sws5xbq" data-title="基于 Hexo 的博客生成脚手架" class="article-share-link">Partager</a>
+      <a data-url="http://zhu-jihui.github.io/2022/10/10/%E5%9F%BA%E4%BA%8E%20Hexo%20%E7%9A%84%E5%8D%9A%E5%AE%A2%E7%94%9F%E6%88%90%E8%84%9A%E6%89%8B%E6%9E%B6/" data-id="cl92m67de00007wz62sws5xbq" data-title="基于 Hexo 的博客生成脚手架" class="article-share-link">Teilen</a>
       
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-如何创建纯净 PE 启动盘" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/10/%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E7%BA%AF%E5%87%80%20PE%20%E5%90%AF%E5%8A%A8%E7%9B%98/" class="article-date">
+  <time class="dt-published" datetime="2022-10-10T10:16:00.000Z" itemprop="datePublished">2022-10-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/">奇技淫巧</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/10/%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E7%BA%AF%E5%87%80%20PE%20%E5%90%AF%E5%8A%A8%E7%9B%98/">如何创建纯净 PE 启动盘</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>参考文档：<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows-hardware/manufacture/desktop/winpe-create-usb-bootable-drive?view=windows-10">https://docs.microsoft.com/zh-cn/windows-hardware/manufacture/desktop/winpe-create-usb-bootable-drive?view=windows-10</a></p>
+<p>不同版本的 ADK：<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows-hardware/get-started/adk-install">https://docs.microsoft.com/zh-cn/windows-hardware/get-started/adk-install</a><br>本文采用 Win10 2004 版</p>
+<ol>
+<li><p>在电脑上下载并安装 <a target="_blank" rel="noopener" href="https://go.microsoft.com/fwlink/?linkid=2120254">ADK</a> 和 <a target="_blank" rel="noopener" href="https://go.microsoft.com/fwlink/?linkid=2120253">ADK 加载项</a>，ADK 安装时只需勾选部署工具即可</p>
+</li>
+<li><p>修改 copype.cmd</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">rem</span><br><span class="line">rem Set environment variables for use in the script</span><br><span class="line">rem</span><br><span class="line">set WINPE_ARCH=%1</span><br><span class="line"># 新增下一行</span><br><span class="line">set WinPERoot=C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment</span><br><span class="line">set SOURCE=%WinPERoot%\%WINPE_ARCH%</span><br><span class="line"># 新增下一行</span><br><span class="line">set OSCDImgRoot=C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools\amd64\Oscdimg</span><br><span class="line">set FWFILESROOT=%OSCDImgRoot%\..\..\%WINPE_ARCH%\Oscdimg</span><br><span class="line">set DEST=%~2</span><br><span class="line">set WIMSOURCEPATH=%SOURCE%\en-us\winpe.wim</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p>copype amd64 C:\\&lt;path&gt;，此处 path 需电脑上不存在的目录</p>
+</li>
+<li><p>MakeWinPEMedia &#x2F;UFD C:\\&lt;path&gt; P:，此处 P: 为 U盘</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://zhu-jihui.github.io/2022/10/10/%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E7%BA%AF%E5%87%80%20PE%20%E5%90%AF%E5%8A%A8%E7%9B%98/" data-id="cl92mn6b40000toz68atp5vx5" data-title="如何创建纯净 PE 启动盘" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PE-%E5%90%AF%E5%8A%A8%E7%9B%98/" rel="tag">PE 启动盘</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-如何构建简单有效的质量保障体系" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/10/%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E7%AE%80%E5%8D%95%E6%9C%89%E6%95%88%E7%9A%84%E8%B4%A8%E9%87%8F%E4%BF%9D%E9%9A%9C%E4%BD%93%E7%B3%BB/" class="article-date">
+  <time class="dt-published" datetime="2022-10-10T10:16:00.000Z" itemprop="datePublished">2022-10-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%B5%8B%E8%AF%95/">测试</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/10/%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E7%AE%80%E5%8D%95%E6%9C%89%E6%95%88%E7%9A%84%E8%B4%A8%E9%87%8F%E4%BF%9D%E9%9A%9C%E4%BD%93%E7%B3%BB/">如何构建简单有效的质量保障体系</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="如何构建简单有效的质量保证体系"><a href="#如何构建简单有效的质量保证体系" class="headerlink" title="如何构建简单有效的质量保证体系"></a>如何构建简单有效的质量保证体系</h4><h4 id="1-引言"><a href="#1-引言" class="headerlink" title="1 引言"></a>1 引言</h4><h5 id="1-1-什么是质量保证"><a href="#1-1-什么是质量保证" class="headerlink" title="1.1 什么是质量保证"></a>1.1 什么是质量保证</h5><blockquote>
+<p><strong>软件质量保证</strong>（英语：<strong>Software quality assurance</strong>，缩写<strong>SQA</strong>）是监控<a target="_blank" rel="noopener" href="https://chinois.jinzhao.wiki/wiki/%E8%BB%9F%E9%AB%94%E5%B7%A5%E7%A8%8B">软件工程</a>流程和方法以确保质量的一系列手段。实现这一目的有着多种方法，并且可以确保符合一个或多个标准，例如<a target="_blank" rel="noopener" href="https://chinois.jinzhao.wiki/wiki/ISO/IEC_9126">ISO&#x2F;IEC 9126</a>（后来被ISO 25010取代），<a target="_blank" rel="noopener" href="https://chinois.jinzhao.wiki/wiki/ISO/IEC_15504">ISO&#x2F;IEC 15504</a>（SPICE），或者<a target="_blank" rel="noopener" href="https://chinois.jinzhao.wiki/wiki/%E8%83%BD%E5%8A%9B%E6%88%90%E7%86%9F%E5%BA%A6%E6%A8%A1%E5%9E%8B%E9%9B%86%E6%88%90">CMMI</a>等模型。——维基百科</p>
+</blockquote>
+<h5 id="1-2-质量保证和测试的区别"><a href="#1-2-质量保证和测试的区别" class="headerlink" title="1.2 质量保证和测试的区别"></a>1.2 质量保证和测试的区别</h5><blockquote>
+<p><strong>软件测试</strong>的经典定义是：在规定的条件下对<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%A8%8B%E5%BA%8F">程序</a>进行操作，以发现<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%A8%8B%E5%BA%8F%E9%94%99%E8%AF%AF">程序错误</a>，衡量<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%BB%9F%E9%AB%94%E5%93%81%E8%B3%AA">软件质量</a>，并对其是否能满足设计要求进行<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%AF%84%E4%BC%B0">评估</a>的过程。</p>
+</blockquote>
+<p>从定义上来看，测试偏向于对程序的测试，而软件质量保证是对流程和方法的约定，所以最终产品的质量是由质量保证和软件测试互相决定的，两者是相辅相成的。</p>
+<h5 id="1-3-如何从测试转型到质量保证"><a href="#1-3-如何从测试转型到质量保证" class="headerlink" title="1.3 如何从测试转型到质量保证"></a>1.3 如何从测试转型到质量保证</h5><ol>
+<li>思维转变，不再局限于「测试」的一亩三分地，而是全面地从产品角度考虑如何提升产品质量</li>
+<li>职责范围扩大，所有可能影响产品质量的工作都将纳入QA范畴</li>
+</ol>
+<h4 id="2-现状"><a href="#2-现状" class="headerlink" title="2 现状"></a>2 现状</h4><ol>
+<li>产品问题多，用户体验不佳</li>
+<li>产品无原型，需求理解不到位</li>
+<li>部分线上问题难以复现</li>
+</ol>
+<h4 id="3-规划"><a href="#3-规划" class="headerlink" title="3 规划"></a>3 规划</h4><h5 id="3-1-稳定"><a href="#3-1-稳定" class="headerlink" title="3.1 稳定"></a>3.1 稳定</h5><p>以功能测试为核心，辅以稳定性等相关性能测试，以及借助静态代码扫描、安全扫描等工具并基于自动化测试报告，在达标版本发布标准后方能对外发版，发版后对线上问题持续跟踪，并记录出现原因、如何规避等</p>
+<p>6月 mes</p>
+<h5 id="3-2-提效"><a href="#3-2-提效" class="headerlink" title="3.2  提效"></a>3.2  提效</h5><h6 id="3-2-1-Api-自动化"><a href="#3-2-1-Api-自动化" class="headerlink" title="3.2.1 Api 自动化"></a>3.2.1 Api 自动化</h6><p>目前覆盖了90%的接口，计划覆盖到所有接口及主要接口大部分用例</p>
+<h6 id="3-2-2-UI-自动化"><a href="#3-2-2-UI-自动化" class="headerlink" title="3.2.2 UI 自动化"></a>3.2.2 UI 自动化</h6><p>目前只做了 浮小麦全流程、全组件、特殊场景 3个 PI 的 UI 自动化</p>
+<h6 id="3-2-3-持续集成"><a href="#3-2-3-持续集成" class="headerlink" title="3.2.3 持续集成"></a>3.2.3 持续集成</h6><ol>
+<li>dev 自动集成：通过 commit 自动触发</li>
+<li>test、master 手动集成</li>
+<li>其他环境选择性集成</li>
+</ol>
+<p><img src="https://s2.loli.net/2021/12/15/S39hignmUrMAGs7.png" alt="image-20211215185651314"></p>
+<h5 id="3-3-赋能"><a href="#3-3-赋能" class="headerlink" title="3.3 赋能"></a>3.3 赋能</h5><h6 id="3-3-1-业务学习"><a href="#3-3-1-业务学习" class="headerlink" title="3.3.1 业务学习"></a>3.3.1 业务学习</h6><ol>
+<li>全方位、系统的进行自身产品业务学习</li>
+<li>熟悉相关竞品软件，如西门子，罗克韦尔等</li>
+</ol>
+<h6 id="3-3-2-能力提升"><a href="#3-3-2-能力提升" class="headerlink" title="3.3.2 能力提升"></a>3.3.2 能力提升</h6><ol>
+<li>阶段测试技能培训</li>
+<li>提升研发自测意识</li>
+<li>提升产品需求编写能力、增加产品原型、文档等输出</li>
+</ol>
+<h6 id="3-3-3-版本控制"><a href="#3-3-3-版本控制" class="headerlink" title="3.3.3 版本控制"></a>3.3.3 版本控制</h6><ol>
+<li>以自然周为目标发布小版本（内部），发版前一天从 dev 合到 test 分支</li>
+<li>以自然月为目标发布大版本（对外），发版前一周从 test 合到 master 分支</li>
+</ol>
+<h6 id="3-3-4-质量标准"><a href="#3-3-4-质量标准" class="headerlink" title="3.3.4 质量标准"></a>3.3.4 质量标准</h6><ol>
+<li><p>测试准入标准：以接口自动化冒烟部分用例通过为标准，具体待定</p>
+</li>
+<li><p>测试覆盖率：以 Jacoco报告为标准，具体待定</p>
+</li>
+<li><p>软件发布标准：<a target="_blank" rel="noopener" href="http://wiki.tcm.com:8082/x/2gVi">http://wiki.tcm.com:8082/x/2gVi</a></p>
+<p><img src="https://s2.loli.net/2021/12/15/DW34Qu5fo78aPFL.png" alt="image-20211215185614475"></p>
+</li>
+<li><p>流程规范：缺少开发评审会议</p>
+</li>
+</ol>
+<h5 id="3-4-探索"><a href="#3-4-探索" class="headerlink" title="3.4 探索"></a>3.4 探索</h5><h6 id="3-4-1-代码扫描"><a href="#3-4-1-代码扫描" class="headerlink" title="3.4.1 代码扫描"></a>3.4.1 代码扫描</h6><p>目前的代码扫描只是基于默认的规则，后期有时间可以探索自定义规则扫描</p>
+<h6 id="3-4-2-安全测试"><a href="#3-4-2-安全测试" class="headerlink" title="3.4.2 安全测试"></a>3.4.2 安全测试</h6><p>结合项目实际需要研究安全扫描相关工具 kali linux</p>
+<h6 id="3-4-3-流量录制与回放"><a href="#3-4-3-流量录制与回放" class="headerlink" title="3.4.3 流量录制与回放"></a>3.4.3 流量录制与回放</h6><p>纯内网环境可能很难通过流量录制再回放，如果不行再研究下其他替代方案</p>
+<h6 id="3-4-4-混沌测试"><a href="#3-4-4-混沌测试" class="headerlink" title="3.4.4 混沌测试"></a>3.4.4 混沌测试</h6><p>K8S 下的微服务稳定性测试，暂定用阿里开源的 Chaosblade</p>
+<h6 id="3-4-5-契约测试"><a href="#3-4-5-契约测试" class="headerlink" title="3.4.5 契约测试"></a>3.4.5 契约测试</h6><p>需要先实现契约，暂时没很好的想法，先提出，有时间研究</p>
+<h6 id="3-4-6-测试平台建设"><a href="#3-4-6-测试平台建设" class="headerlink" title="3.4.6 测试平台建设"></a>3.4.6 测试平台建设</h6><p>一个所有关于产品质量指标的汇总平台，暂时没很好的想法，先提出，有时间研究</p>
+<p>性能自动化</p>
+<p>接口用例自动生成</p>
+<p>UI用例录制后转化</p>
+<h5 id="3-5-蓝图"><a href="#3-5-蓝图" class="headerlink" title="3.5 蓝图"></a>3.5 蓝图</h5><h6 id="3-5-1-QA-工作范畴"><a href="#3-5-1-QA-工作范畴" class="headerlink" title="3.5.1 QA 工作范畴"></a>3.5.1 QA 工作范畴</h6><p><img src="https://s2.loli.net/2021/12/15/cDXRuEvdfgzKZFY.png" alt="image-20211215165231670"></p>
+<h4 id="4-安排"><a href="#4-安排" class="headerlink" title="4 安排"></a>4 安排</h4><table>
+<thead>
+<tr>
+<th>人员</th>
+<th>工作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>胡</td>
+<td>MES CI &amp; SIT</td>
+</tr>
+<tr>
+<td>李</td>
+<td>1. PKS CI &amp; SIT<br >2. 性能测试；<br >3. UI Automation；<br >4. BUG 每日摘要</td>
+</tr>
+<tr>
+<td>高</td>
+<td>1. MES SIT（协助）；<br >2. QMS CI &amp; SIT（未来）；<br >3. 各项目归档；<br >4. SCADA 协助</td>
+</tr>
+<tr>
+<td>方</td>
+<td>1. SCADA CI &amp; SIT；<br >2. Api Automation；<br >3. SQL 更新</td>
+</tr>
+</tbody></table>
+<p>招人</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://zhu-jihui.github.io/2022/10/10/%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E7%AE%80%E5%8D%95%E6%9C%89%E6%95%88%E7%9A%84%E8%B4%A8%E9%87%8F%E4%BF%9D%E9%9A%9C%E4%BD%93%E7%B3%BB/" data-id="cl92mn6bb0001toz6d312dp4j" data-title="如何构建简单有效的质量保障体系" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%B4%A8%E9%87%8F%E4%BF%9D%E9%9A%9C%E4%BD%93%E7%B3%BB-%E8%B4%A8%E9%87%8F%E4%BF%9D%E8%AF%81%E4%BD%93%E7%B3%BB-QAS-QualityAssurance/" rel="tag">质量保障体系 质量保证体系 QAS QualityAssurance</a></li></ul>
 
     </footer>
   </div>
@@ -315,7 +504,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://zhu-jihui.github.io/2022/10/10/kubernetes%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2%E5%AE%9E%E6%88%98/" data-id="cl92h5vjn00004wz6hnn8bywc" data-title="" class="article-share-link">Partager</a>
+      <a data-url="http://zhu-jihui.github.io/2022/10/10/kubernetes%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%83%A8%E7%BD%B2%E5%AE%9E%E6%88%98/" data-id="cl92h5vjn00004wz6hnn8bywc" data-title="" class="article-share-link">Teilen</a>
       
       
       
@@ -366,7 +555,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://zhu-jihui.github.io/2022/10/10/hello-world/" data-id="cl92gx7d20000voz6fs5geiq7" data-title="Hello World" class="article-share-link">Partager</a>
+      <a data-url="http://zhu-jihui.github.io/2022/10/10/hello-world/" data-id="cl92gx7d20000voz6fs5geiq7" data-title="Hello World" class="article-share-link">Teilen</a>
       
       
       
@@ -386,9 +575,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Catégories</h3>
+    <h3 class="widget-title">Kategorien</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/">奇技淫巧</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/">奇技淫巧</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B5%8B%E8%AF%95/">测试</a></li></ul>
     </div>
   </div>
 
@@ -396,9 +585,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Mot-clés</h3>
+    <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PE-%E5%90%AF%E5%8A%A8%E7%9B%98/" rel="tag">PE 启动盘</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B4%A8%E9%87%8F%E4%BF%9D%E9%9A%9C%E4%BD%93%E7%B3%BB-%E8%B4%A8%E9%87%8F%E4%BF%9D%E8%AF%81%E4%BD%93%E7%B3%BB-QAS-QualityAssurance/" rel="tag">质量保障体系 质量保证体系 QAS QualityAssurance</a></li></ul>
     </div>
   </div>
 
@@ -406,16 +595,16 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">博客</a>
+      <a href="/tags/PE-%E5%90%AF%E5%8A%A8%E7%9B%98/" style="font-size: 10px;">PE 启动盘</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">博客</a> <a href="/tags/%E8%B4%A8%E9%87%8F%E4%BF%9D%E9%9A%9C%E4%BD%93%E7%B3%BB-%E8%B4%A8%E9%87%8F%E4%BF%9D%E8%AF%81%E4%BD%93%E7%B3%BB-QAS-QualityAssurance/" style="font-size: 10px;">质量保障体系 质量保证体系 QAS QualityAssurance</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
+    <h3 class="widget-title">Archiv</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">October 2022</a></li></ul>
     </div>
@@ -425,12 +614,20 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
         
           <li>
             <a href="/2022/10/10/%E5%9F%BA%E4%BA%8E%20Hexo%20%E7%9A%84%E5%8D%9A%E5%AE%A2%E7%94%9F%E6%88%90%E8%84%9A%E6%89%8B%E6%9E%B6/">基于 Hexo 的博客生成脚手架</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/10/%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E7%BA%AF%E5%87%80%20PE%20%E5%90%AF%E5%8A%A8%E7%9B%98/">如何创建纯净 PE 启动盘</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/10/%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E7%AE%80%E5%8D%95%E6%9C%89%E6%95%88%E7%9A%84%E8%B4%A8%E9%87%8F%E4%BF%9D%E9%9A%9C%E4%BD%93%E7%B3%BB/">如何构建简单有效的质量保障体系</a>
           </li>
         
           <li>
@@ -455,7 +652,7 @@
     <div id="footer-info" class="inner">
       
       &copy; 2022 Jihui Zhu<br>
-      Propulsé par <a href="https://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
